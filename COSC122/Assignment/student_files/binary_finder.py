@@ -1,5 +1,5 @@
-""" Your docstring should go here
-Along with your name and email address
+""" 
+Dominic Mcnulty Binary Finder
 """
 from utilities import read_dataset
 import classes
