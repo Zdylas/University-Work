@@ -1,0 +1,8 @@
+stolen=5
+IQ1998 FS1860 JI9400 NN3705 AS0734
+
+sightings=5
+PS0835 IN8907 QA7028 PH6326 VW9935
+
+sighted stolen=0
+
