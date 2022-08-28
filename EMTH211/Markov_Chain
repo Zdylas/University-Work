@@ -1,0 +1,62 @@
+import numpy as np
+import numpy.linalg as la
+
+
+
+def markov(transition_matrix, vector, n):
+    d, P = la.eig(transition_matrix)
+    P_1 = la.inv(P)
+    D = np.diag(d)
+
+    print(P @ la.matrix_power(D, n) @ P_1 @ vector)
+    
+def power_method(matrix, vector, iterations):
+
+    for _ in range(iterations):
+        vector = vector/la.norm(vector, 2)
+        vector = matrix @ vector
+
+    print(vector/la.norm(vector, 2))
+
+    print(la.norm(vector, 2))
+
+def leslie(matrix, starting_vector, iterations):
+    new_vector = matrix @ starting_vector
+    print(new_vector)
+    for i in range(iterations-1):
+        new_vector = matrix @ new_vector
+        print(new_vector)
+    
+
+
+transition_matrix = np.array([[0.6, 0.1, 0.2],
+                              [0.2, 0.7, 0.4],
+                              [0.2, 0.2, 0.4]])
+i_state_vector = np.array([[0.2],
+                           [0.5],
+                           [0.3]])
+n = 100000
+
+A_matrix = np.array([[7, 2],
+                     [2, 3]])
+
+start_vector = np.array([[1],
+                         [0]])
+iterations = 6
+
+B_matrix = np.array([[0, 1, 2, 5],
+                     [0.5, 0, 0, 0],
+                     [0, 0.7, 0, 0],
+                     [0, 0, 0.3, 0]])
+
+leslie_iterations = 3
+
+starting_vector = np.array([[10],
+                            [10],
+                            [10],
+                            [10]])
+
+
+#markov(transition_matrix, i_state_vector, n)
+#power_method(A_matrix, start_vector, iterations)
+leslie(B_matrix, starting_vector, leslie_iterations)
