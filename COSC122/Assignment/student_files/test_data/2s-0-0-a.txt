@@ -1,7 +1,0 @@
-stolen=2
-FS1860 IQ1998
-
-sightings=0
-
-sighted stolen=0
-
