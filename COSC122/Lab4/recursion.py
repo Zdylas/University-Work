@@ -166,7 +166,11 @@ def factorial(n):
     120
     """
     # ---start student section---
-    pass
+    
+    if n <= 0:
+        return 1 
+    else:
+        return n *factorial(n-1)
     # ===end student section===
 
 
@@ -214,7 +218,12 @@ def quick_power(x, n):
     79228162514264337593543950336
     """
     # ---start student section---
-    pass
+    if n == 0:
+        return 1
+    elif n % 2 == 0:
+        return quick_power(x, n/2)**2
+    else:
+        return x * quick_power(x, n-1)
     # ===end student section===
 
 
@@ -249,7 +258,10 @@ def linked_list_length(list_node):
     # Remember you should be using recursion so your function should
     # call linked_list_length at some stage!
     # ---start student section---
-    pass
+    if list_node == None:
+        return 0
+    else:
+        return 1 + linked_list_length(list_node.next_node)
     # ===end student section===
 
 
@@ -292,7 +304,11 @@ def linked_list_print(list_node):
     # Remember you should be using recursion so your function should
     # call linked_list_print at some stage!
     # ---start student section---
-    pass
+    if list_node == None:
+        return None
+    else:
+        print(f"{list_node.item}")
+        linked_list_print(list_node.next_node)
     # ===end student section===
 
 
@@ -327,7 +343,11 @@ def linked_list_reverse_print(list_node):
     # call linked_list_reverse_print at some stage!
     # Hint: make sure you aren't calling linked_list_print!
     # ---start student section---
-    pass
+    if list_node == None:
+        return None
+    else:
+        linked_list_reverse_print(list_node.next_node)
+        print(f"{list_node.item}")
     # ===end student section===
 
 
@@ -358,7 +378,12 @@ def is_in_linked_list(list_node, item):
     # Remember you should be using recursion so your function should
     # call is_in_linked_list at some stage!
     # ---start student section---
-    pass
+    if list_node == None:
+        return False
+    elif list_node.item == item:
+        return True
+    else:
+        return is_in_linked_list(list_node.next_node, item)
     # ===end student section===
 
 
@@ -388,7 +413,11 @@ def recursive_string_print(s):
     i
     """
     # ---start student section---
-    pass
+    if len(s) == 1:
+        print(s)
+    else:
+        print(s[0])
+        recursive_string_print(s[1:])
     # ===end student section===
 
 
@@ -417,7 +446,11 @@ def recursive_reverse_string_print(s):
     p
     """
     # ---start student section---
-    pass
+    if len(s) == 1:
+        print(s)
+    else:
+        recursive_reverse_string_print(s[1:])
+        print(s[0])
     # ===end student section===
 
 
@@ -445,7 +478,12 @@ def squares(data):
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     """
     # ---start student section---
-    pass
+    if len(data) == 0:
+        return []
+    elif len(data) == 1:
+        return [data[0]**2]
+    else:
+        return [data[0]**2] + squares(data[1:])
     # ===end student section===
 
 
@@ -515,9 +553,21 @@ def nice_recursive_string_print(string, index=0):
     y
     """
     # ---start student section---
-    pass
+    if index == len(string)-1:
+        print(string[index])
+    else:
+        print(string[index])
+        index += 1 
+        nice_recursive_string_print(string, index)
     # ===end student section===
 
+def rec_print_list(alist, index=0):
+    if index == len(alist)-1:
+        print(alist[index])
+    else:
+        print(alist[index])
+        index += 1 
+        rec_print_list(alist, index)
 
 
 
@@ -555,8 +605,15 @@ def num_rushes(slope_height, rush_height_gain, back_sliding, start_height=0):
     >>> print(num_rushes(200, 16, 9))
     28
     """
-    # ---start student section---
-    pass
+    # ---start student section--
+    if start_height >= slope_height:
+        return 0
+    else:
+        start_height += rush_height_gain
+        if start_height >= slope_height:
+            return 1
+        start_height -= back_sliding
+        return 1 + num_rushes(slope_height, rush_height_gain, back_sliding, start_height)
     # ===end student section===
 
 
@@ -568,7 +625,7 @@ if __name__ == '__main__':
     os.environ['TERM'] = 'linux'  # Suppress ^[[?1034h
 
     # Comment out the next line if you want to run individual tests
-    doctest.testmod()
+    #doctest.testmod()
 
     # then uncomment individual doctest runs below
     #doctest.run_docstring_examples(slow_power, None)
@@ -587,7 +644,9 @@ if __name__ == '__main__':
 
     #doctest.run_docstring_examples(nice_recursive_string_print, None)
     #doctest.run_docstring_examples(nice_total, None)
-    #doctest.run_docstring_examples(num_rushes, None)
+    doctest.run_docstring_examples(num_rushes, None)
+
+    #rec_print_list([1,2,3,4,5], 2)
 
     # Some other interesting tests to run:
     # -----------------------------------
@@ -599,9 +658,9 @@ if __name__ == '__main__':
     #print('fib({0:d}) = {1:d}'.format(n, fib_iterative(n)))
     # print('\n')
 
-    #n = 31
+    #n = 39
     #print('fib({0:d}) = {1:d}'.format(n, fib_recursive(n)))
-    # print('\n')
+    #print('\n')
 
     # Given the value for fib_iterative(100) would it be wise
     # to try to run fib_recursive(100)????

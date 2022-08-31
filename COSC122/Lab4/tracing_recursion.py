@@ -29,3 +29,11 @@ def boggle(val):
         boggle(val -1)
         print(val)
         boggle(val -1)
+
+boggle(0)
+print()
+boggle(1)
+print()
+boggle(2)
+print()
+boggle(3)
