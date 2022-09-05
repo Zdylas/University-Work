@@ -41,19 +41,42 @@ LinkedListElement_t* findElement(LinkedList_t* list, char data)
     }
     
 }
+
+void deleteHelper(LinkedListElement_t* Node, char data, LinkedListElement_t* prevNode)
+{
+    if (Node == NULL) {
+        return;
+    }
+    if (Node->data == data) {
+        prevNode->next = Node->next;
+        free(Node);
+        
+    } else {
+        deleteHelper(Node->next, data, Node);
+    }
+}
+
 void deleteElement(LinkedList_t* list, LinkedListElement_t* element)
 {
     if (element == NULL) {
-        return
+        return;
     } 
-    if (findElement(list, element->data) = NULL) {
-        return
-    } else {
-        
+    if (findElement(list, element->data) == NULL) {
+        free(element);
+        return;
     }
-
-
-
+    if (list->head == element && list->tail == element) {
+        list->head = NULL;
+        list->tail = NULL;
+        free(element);
+        return;
+    }
+    if (list->head == element) {
+        list->head = element->next;
+        free(element);
+    } else {
+        deleteHelper(list->head, element->data, NULL);
+    }
 }
 
 int main(void)
@@ -64,15 +87,12 @@ int main(void)
     addElement(&alist, 'b');
     addElement(&alist, 'c');
     element = findElement(&alist, 'b');
-    addElement(&alist, 'd');
-    printf("Found element: %c\n", element->data);
-    element = findElement(&alist, 'd');
-    printf("Found element: %c\n", element->data);
-    element = findElement(&alist, 'f');
-    if (element == NULL) {
-        printf("NULL");
-    } else {
-        printf("Found element: %c\n", element->data);
+    deleteElement(&alist, element);
+    for (LinkedListElement_t* elem=alist.head; elem != NULL; elem = elem->next) {
+        printf("%c", elem->data);
     }
-    
+    //Clean up
+    while (alist.head != NULL) {
+        deleteElement(&alist, alist.head);
+    }
 }
