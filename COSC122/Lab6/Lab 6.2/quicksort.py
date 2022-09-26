@@ -259,6 +259,5 @@ def pivot_index_mo3(values, left, right):
 if __name__ == "__main__":
     #data_list = list(range(300))  #test_list is a sorted list
     #random.shuffle(data_list)
-    data_list = read_data(r"C:\Users\domin\Desktop\UNI\COSC122\Lab6\Lab 6.2\test_data\list0.txt")
-
-    print(statistics.median(data_list))
+    data_list = read_data("./test_data/list0.txt")
+    pass
