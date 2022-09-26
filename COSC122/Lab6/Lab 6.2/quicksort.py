@@ -1,6 +1,13 @@
 import time
 import random
 import doctest
+import os
+import sys
+import time
+import random
+import statistics
+
+
 
 
 def read_data(filename):
@@ -10,7 +17,7 @@ def read_data(filename):
     return values
 
 
-def quicksort(values, style='left-pivot'):
+def quicksort(values, style='mo3-pivot'):
     """Starts the quicksort algorithm for sorting a list of values in-place.
     >>> quicksort([1, 4, 10, 8, 2, 6, 7, 0, 5, 9, 3])
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -150,7 +157,27 @@ def quicksort_range_helper(values, left, right, start, end, style):
     but only if the left-right range has any overlap with the start-end range.
     """
     # ---start student section---
-    pass
+    """
+    Recursive quicksort helper.
+    Sorts, in place, the portion of values between left and right.
+    """
+    # Stop when the left and right indices cross
+    do_return = False
+    if not ((left <= start <= right) | (left <= end <= right)):
+        do_return = True
+    if start <= left <= right <= end:
+        do_return = False
+    if do_return:
+        return
+
+    # Partition the list
+    split = partition(values, left, right, style)
+
+    # Sort the left part
+    quicksort_range_helper(values, left, split - 1, start, end, style)
+
+    # Sort the right part
+    quicksort_range_helper(values, split + 1, right, start, end, style)
     # ===end student section===
 
 
@@ -213,9 +240,25 @@ def pivot_index_mo3(values, left, right):
     middle = (left + right) // 2
 
     # ---start student section---
-    pass
+    if left == right | left == right+1:
+        return left
+    if values[left] == values[middle] == values[right]:
+        return middle
+    new_array = [values[left], values[middle], values[right]]
+    sorted_array = sorted(new_array)
+    if sorted_array[1] == new_array[0]:
+        return left
+    if sorted_array[1] == new_array[1]:
+        return middle
+    if sorted_array[1] == new_array[2]:
+        return right
+
+
     # ===end student section===
 
-
 if __name__ == "__main__":
-    doctest.testmod()
+    #data_list = list(range(300))  #test_list is a sorted list
+    #random.shuffle(data_list)
+    data_list = read_data(r"C:\Users\domin\Desktop\UNI\COSC122\Lab6\Lab 6.2\test_data\list0.txt")
+
+    print(statistics.median(data_list))

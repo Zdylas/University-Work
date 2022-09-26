@@ -47,11 +47,36 @@ def common_items(list_x, list_y):
     # [0, 2]
     # >>> common_items([0,1,2,2,5,5,6,6,7],[0,0,2,4,5,5,5,7])
     # [0, 2, 5, 7]
-
     # ---start student section---
-    pass
+    key_comparison = 0
+    final_list = []
+    if len(list_x) & len(list_y) > 1:
+        smallest_x = 0
+        smallest_y = 0
+        while (smallest_x < len(list_x)) & (smallest_y < len(list_y)):
+            key_comparison += 1
+            if list_x[smallest_x] == list_y[smallest_y]:
+                final_list.append(list_x[smallest_x])
+                smallest_x += 1
+                smallest_y += 1
+            elif list_x[smallest_x] < list_y[smallest_y]:
+                key_comparison += 1
+                smallest_x += 1
+            else:
+                key_comparison += 1
+                smallest_y += 1
+    else:
+        return key_comparison, []
+    return key_comparison, final_list
     # ===end student section===
 
 
 if __name__ == "__main__":
-    doctest.testmod()
+    a_list = read_data(r"C:\Users\domin\Desktop\UNI\COSC122\Lab6\Lab 6.2\test_data\ordered_12.txt")
+    b_list = read_data(r"C:\Users\domin\Desktop\UNI\COSC122\Lab6\Lab 6.2\test_data\ordered_15.txt")
+    new_a_list = list(set(a_list))
+    new_b_list = list(set(b_list))
+
+    c, a = common_items(a_list, b_list)
+    print(a)
+    print(len(set(a)))
