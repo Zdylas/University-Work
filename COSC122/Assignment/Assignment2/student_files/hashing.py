@@ -9,14 +9,14 @@ with bigger data sets. Passing tests.py doesn't necessarily
 mean that your code works so make sure you don't rely solely
 on those tests...
 
-Author: <name here>
-Date: <data here>
+Author: Dominic McNulty
+Date: 27/09/2022
 
 """
 
 import doctest
 from classes2 import NumberPlate
-from stats import StatCounter
+from stats import StatCounter, COMPS, HASHES
 
 
 
@@ -83,6 +83,7 @@ class ListTable:
         updated = False
         while i < len(self.data_list) and not updated:
             current_plate, value = self.data_list[i]
+            self.n_plate_comparisons += 1
             if current_plate == plate:
                 self.data_list[i] = record
                 updated = True
@@ -120,6 +121,7 @@ class ListTable:
         i = 0
         while i < len(self.data_list) and not found:
             current_plate, _ = self.data_list[i]
+            self.n_plate_comparisons += 1
             if current_plate == plate:
                 found = True
             else:
@@ -155,6 +157,7 @@ class ListTable:
         i = 0
         while i < len(self.data_list) and not found:
             current_plate, current_value = self.data_list[i]
+            self.n_plate_comparisons += 1
             if current_plate == plate:
                 found = True
             else:
@@ -232,7 +235,6 @@ class LinearHashTable:
         traversed = 0
         plate_hash = hash(plate) % self.n_slots
         self.n_plate_hashes += 1
-        search_location = hash(plate) % self.n_slots
         while traversed < len(self.table_list):
             if self.table_list[plate_hash] is None:
                 self.n_items += 1
@@ -283,7 +285,7 @@ class LinearHashTable:
         plate_hash = hash(plate) % self.n_slots
         self.n_plate_hashes += 1
         while traversed < len(self.table_list):
-            if self.table_list[plate_hash] == None:
+            if self.table_list[plate_hash] is None:
                 return None
             self.n_plate_comparisons += 1
             if self.table_list[plate_hash][0] == plate:
@@ -404,7 +406,7 @@ class ChainingHashTable:
         plate_hash = hash(plate) % self.n_slots
         if self.__contains__(plate):
             for tuples in self.table_list[plate_hash]:
-                self.n_plate_comparisons +=1
+                self.n_plate_comparisons += 1
                 if tuples[0] == plate:
                     return tuples[1]
             
@@ -565,7 +567,8 @@ def example_linearhash_stuff():
     table[plate2] = 'BBB222-flag'
     print(table)
     print('\n' * 3)
-
+    print(table.n_plate_hashes)
+    print(table.n_plate_comparisons)
 
 def example_chaining_stuff():
     """ Example use of the chaining hash table.
@@ -598,6 +601,8 @@ def example_chaining_stuff():
     table[plate5] = 'BBB222-flag'
     print(table)
     print('plate5 (BBB222) in table:', plate5 in table)
+    print(table.n_plate_hashes)
+    print(table.n_plate_comparisons)
 
 
 # Students can leave the following out in their submission
@@ -606,9 +611,11 @@ if __name__ == '__main__':
     # doctest.testmod()
 
     # various examples for you to run and expand upon
-    run_simple_tests()
-    # example_linearhash_stuff()
-    #example_chaining_stuff()
+    #example_linearhash_stuff()
+    example_chaining_stuff()
+
+    print(StatCounter.get_count(HASHES))
+    print(StatCounter.get_count(COMPS))
 
 
 

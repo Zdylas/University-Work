@@ -749,9 +749,9 @@ def all_tests_suite():
     """
     suite = unittest.TestSuite()
 
-    #uite.addTest(unittest.makeSuite(TinyTableTestsListTable))
+    #suite.addTest(unittest.makeSuite(TinyTableTestsListTable))
     #suite.addTest(unittest.makeSuite(MediumTableTestsListTable))
-    #suite.addTest(unittest.makeSuite(LargeTableTestsListTable))
+    suite.addTest(unittest.makeSuite(LargeTableTestsListTable))
 
     #suite.addTest(unittest.makeSuite(TinyTableTestsLP))
     #suite.addTest(unittest.makeSuite(MediumTableTestsLP))
@@ -764,9 +764,9 @@ def all_tests_suite():
     #suite.addTest(unittest.makeSuite(TestMakingDbTableLinear))
     #suite.addTest(unittest.makeSuite(TestMakingDbTableChaining))
 
-    suite.addTest(unittest.makeSuite(SmallProcessCameraTests))
-    suite.addTest(unittest.makeSuite(MediumProcessCameraTests))
-    suite.addTest(unittest.makeSuite(LargeProcessCameraTests))
+    #suite.addTest(unittest.makeSuite(SmallProcessCameraTests))
+    #suite.addTest(unittest.makeSuite(MediumProcessCameraTests))
+    #suite.addTest(unittest.makeSuite(LargeProcessCameraTests))
 
     return suite
 
