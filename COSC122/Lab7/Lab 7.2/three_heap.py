@@ -105,7 +105,15 @@ class Max_3_Heap(Heap):
         while it is larger than its parent.
         """
         # ---start student section---
-        pass
+        parent = (index+1) // 3
+        # While we haven't reached the top of the heap, and its parent is
+        # smaller than the item
+        if index > 1 and self._items[index] > self._items[parent]:
+            # Swap the item and its parent
+            print(self._items)
+            self._items[index], self._items[parent] = self._items[parent], self._items[index]
+            # Carry on sifting up from the parent index
+            self._sift_up(parent)
         # ===end student section===
 
     #-------------------------------------------------
@@ -234,11 +242,12 @@ class Max_3_Heap(Heap):
 
 
 if __name__ == '__main__':
-    os.environ['TERM'] = 'linux'  # Suppress ^[[?1034h
-    doctest.testmod()
+    #os.environ['TERM'] = 'linux'  # Suppress ^[[?1034h
+    #doctest.testmod()
 
     my_heap = Max_3_Heap()
-    for item in [20, 18,13,15,11,12,16,10,9,11,13,2,9,10,1]:
+    for item in [92, 90, 58, 74, 82, 84, 86, 32, 18, 30, 64, 46, 34, 44, 40, 14, 24, 22, 36, 8, 26, 20, 10]:
         my_heap.insert(item)
-
-
+    my_heap.pop_max()
+    print(my_heap)
+    print(7 // 4)

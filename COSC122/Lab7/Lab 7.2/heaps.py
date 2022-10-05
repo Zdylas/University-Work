@@ -77,7 +77,8 @@ class MinHeap(Heap):
         [None, 2, 3, 5, 7, 4]
         """
         # ---start student section---
-        pass
+        self._items.append(item)
+        self._sift_up(len(self._items)-1)
         # ===end student section===
 
     #-------------------------------------------------
@@ -153,9 +154,30 @@ class MinHeap(Heap):
         4
         >>> h.pop_min()
         3
+        >>> h = MinHeap()
+        >>> h.insert(1)
+        >>> h.insert(5)
+        >>> h.insert(2)
+        >>> h.insert(7)
+        >>> h.validate()
+        True
+        >>> h.pop_min()
+        1
+        >>> h.validate()
+        True
         """
         # ---start student section---
-        pass
+        if (len(self._items) == 1):
+            return None
+        if (len(self._items) == 2):
+            return self._items.pop(1)
+        last_index = len(self._items)-1
+        temp_value = self._items[1]
+        self._items[1] = self._items[last_index]
+        self._items.pop(last_index)
+        self._sift_down(1)
+        return temp_value
+        
         # ===end student section===
 
     #-------------------------------------------------
@@ -170,6 +192,9 @@ class MinHeap(Heap):
             left = 2 * index
             right = left + 1
             smallest = left
+            if right <= len(self):
+                if self._items[left] > self._items[right]:
+                    smallest = right
             if self._items[index] > self._items[smallest]:
                 self._items[smallest], self._items[index] = self._items[index], self._items[smallest]
                 self._sift_down(smallest)
@@ -197,11 +222,25 @@ class MinHeap(Heap):
         """
 
         # ---start student section---
-        pass
+        for i in range(1, len(self._items)-1):
+            if i*2 <= len(self._items)-1:
+                if self._items[i] > self._items[i*2]:
+                    return False
+            if i*2+1 <= len(self._items)-1:
+                if self._items[i] > self._items[i*2+1]:
+                    return False
+        return True
         # ===end student section===
 
 
 if __name__ == '__main__':
-    os.environ['TERM'] = 'linux'  # Suppress ^[[?1034h
-    doctest.testmod()
+    #os.environ['TERM'] = 'linux'  # Suppress ^[[?1034h
+    #doctest.testmod()
+    nums = load_file("list8.txt")
+    h = MinHeap()
+    for num in nums:
+        h.insert(num)
+    for _ in range(0,100):
+        h.pop_min()
+    print(h.pop_min())
 
